@@ -1,0 +1,68 @@
+#cert = :configDir/live/:hostname/cert.pem
+cert = undefined/letsencrypt/etc/live/smarthome.reydelleon.me/cert.pem
+privkey = undefined/letsencrypt/etc/live/smarthome.reydelleon.me/privkey.pem
+chain = undefined/letsencrypt/etc/live/smarthome.reydelleon.me/chain.pem
+fullchain = undefined/letsencrypt/etc/live/smarthome.reydelleon.me/fullchain.pem
+
+# Options and defaults used in the renewal process
+[renewalparams]
+apache_enmod = a2enmod
+no_verify_ssl = False
+ifaces = None
+apache_dismod = a2dismod
+register_unsafely_without_email = False
+uir = None
+installer = none
+config_dir = undefined/letsencrypt/etc
+text_mode = True
+# junk?
+# https://github.com/letsencrypt/letsencrypt/issues/1955
+func = <function obtain_cert at 0x30c9500>
+prepare = False
+work_dir = undefined/letsencrypt/var/lib
+tos = True
+init = False
+duplicate = False
+# this is for the domain
+key_path = undefined/letsencrypt/etc/live/smarthome.reydelleon.me/privkey.pem
+nginx = False
+fullchain_path = :fullchain_path
+email = contact@reydelleon.me
+csr = None
+agree_dev_preview = None
+redirect = None
+verbose_count = -3
+config_file = None
+renew_by_default = True
+hsts = False
+authenticator = webroot
+domains = smarthome.reydelleon.me, #comma,delimited,list
+rsa_key_size = 2048
+# starts at 0 and increments at every renewal
+checkpoints = 0
+manual_test_mode = False
+apache = False
+cert_path = :cert_path
+webroot_path = undefined/letsencrypt/var/lib/acme-challenge, # comma,delimited,list
+strict_permissions = False
+apache_server_root = /etc/apache2
+# https://github.com/letsencrypt/letsencrypt/issues/1948
+account = 268720c7bac9dde691667832881f763e
+manual_public_ip_logging_ok = False
+chain_path = :chain_path
+standalone = False
+manual = False
+server = https://acme-staging.api.letsencrypt.org/directory
+standalone_supported_challenges = "http-01,tls-sni-01"
+webroot = True
+apache_init_script = None
+user_agent = None
+apache_ctl = apache2ctl
+apache_le_vhost_ext = -le-ssl.conf
+debug = False
+tls_sni_01_port = 443
+logs_dir = undefined/letsencrypt/var/log
+configurator = None
+[[webroot_map]]
+# :hostname = :webroot_path
+smarthome.reydelleon.me = undefined/letsencrypt/var/lib/acme-challenge
