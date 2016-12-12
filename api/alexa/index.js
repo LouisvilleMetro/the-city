@@ -21,8 +21,7 @@ router.post('/alexa', function *(next) {
     let request = yield parse.json(this);
 
     try {
-        var f = yield theCitySkill.handle(request);
-        this.body = f;
+        this.body = yield theCitySkill.handle(request);
     } catch (err) {
         console.log(err);
     }
