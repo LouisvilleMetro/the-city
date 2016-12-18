@@ -57,22 +57,6 @@ global.reqLog = log.child({ eventType: 'reqLifeCycle' });
 global.scLog = log.child({ eventType: 'security' });
 global.errLog = log.child({ eventType: 'error' });
 
-// SSL certificate
-var le = LE.create({
-    server: config.sslcert.server,
-    approveDomains: approveDomains
-    //debug: true
-});
-
-function approveDomains(opts, certs, cb) {
-    // Check the domain
-    opts.domains = certs && certs.altnames || opts.domains;
-    opts.email = 'contact@reydelleon.me';
-    opts.agreeTos = true;
-
-    cb(null, { options: opts, certs: certs });
-}
-
 // Core Services
 global.rubbishPickupAPI = new RubbishPickupAPI(config.rubbishPickupAPI.host);
 
