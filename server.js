@@ -104,15 +104,4 @@ app.use(compress({}));
 // Core API routes
 app.use(api.routes());
 
-// Run the service with HTTPS protocol.
-//var server = https.createServer(le.httpsOptions, le.middleware(app.callback()));
-//server.listen(config.securePort, function () {
-//    lcLog.info(`The City is ready and listening at https://${this.address().address}:${this.address().port}`);
-//});
-//
-//var redirectHttps = koa().use(koaSslify()).callback();
-//http.createServer(le.middleware(redirectHttps)).listen(config.standardPort , function () {
-//    log.info('Handle ACME http-01 challenge and redirect to https');
-//});
-
-app.listen(config.standardPort);
+app.listen(config.bindPort, config.bindAddress);
