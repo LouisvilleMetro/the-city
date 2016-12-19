@@ -25,7 +25,6 @@
     "request": "^2.75.0",
     "request-promise": "^4.1.1",
     "spdy": "^3.4.4",
-    "usps-webtools": "^0.2.3",
     "util": "^0.10.3",
     "uuid-lib": "0.0.6"
   },
