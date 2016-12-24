@@ -18,7 +18,14 @@ var Config       = require('../../config'),
  * Handles Alexa skill requests.
  */
 router.post('/alexa', function *(next) {
-    let request = yield parse.json(this);
+    var request;
+
+    // Need to do this check because of the request verification for Amazon
+    if (this.req._body) {
+        request = this.req.body;
+    } else {
+        request = yield parse.json(this);
+    }
 
     this.body = yield theCitySkill.handle(request);
 });
