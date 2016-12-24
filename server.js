@@ -2,7 +2,7 @@
  * @module      com.louisvillemetro.the-city
  * @author      Reydel Leon Machado
  * @copyright   Copyright (c) 2016 Reydel Leon Machado
- * @license     This code is license under the MIT license. See the LICENSE file in the project root for license terms.
+ * @license     This code is licensed under the MIT license. See the LICENSE file in the project root for license terms.
  */
 
 "use strict";
@@ -26,7 +26,8 @@ var Config            = require('./config'),
     koaSslify         = require('koa-sslify'),
     api               = require('./api'),
     mysql             = require('mysql2'),
-    Uuid              = require('uuid');
+    Uuid              = require('uuid'),
+    requestVerifier   = require('./lib/alexa-request-verifier');
 
 // Support Services
 global.log = bunyan.createLogger({
@@ -60,17 +61,6 @@ global.errLog = log.child({ eventType: 'error' });
 // Core Services
 global.rubbishPickupAPI = new RubbishPickupAPI(config.rubbishPickupAPI.host);
 
-app.use(function *(next) {
-    let uuid = Uuid.v4();
-    this.set('X-Request-ID', uuid);
-
-    reqLog.info({ reqID: uuid, req: this.req });
-
-    yield next;
-
-    reqLog.info({ reqID: uuid, res: this.res });
-});
-
 // Error Handling
 app.use(function *(next) {
     try {
@@ -98,7 +88,20 @@ app.on('error', (err) => {
 });
 
 // Utility Middleware
+app.use(function* addRequestID(next) {
+    let uuid = Uuid.v4();
+    this.set('X-Request-ID', uuid);
+
+    reqLog.info({ reqID: uuid, req: this.request });
+
+    yield next;
+
+    reqLog.info({ reqID: uuid, res: this.response });
+});
 app.use(responseTime());
+if (process.env.NODE_ENV == 'production') {
+    app.use(requestVerifier());
+}
 app.use(compress({}));
 
 // Core API routes
