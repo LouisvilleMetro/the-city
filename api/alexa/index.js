@@ -20,11 +20,7 @@ var Config       = require('../../config'),
 router.post('/alexa', function *(next) {
     let request = yield parse.json(this);
 
-    try {
-        this.body = yield theCitySkill.handle(request);
-    } catch (err) {
-        console.log(err);
-    }
+    this.body = yield theCitySkill.handle(request);
 });
 
 module.exports = router;
